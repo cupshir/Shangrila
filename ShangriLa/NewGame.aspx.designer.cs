@@ -13,6 +13,33 @@ namespace ShangriLa {
     public partial class NewGame {
         
         /// <summary>
+        /// pnlNewGame control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlNewGame;
+        
+        /// <summary>
+        /// btnStartGame control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnStartGame;
+        
+        /// <summary>
+        /// phNewGame control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder phNewGame;
+        
+        /// <summary>
         /// btnAddPlayer control.
         /// </summary>
         /// <remarks>
@@ -31,12 +58,48 @@ namespace ShangriLa {
         protected global::System.Web.UI.WebControls.Button btnRemovePlayer;
         
         /// <summary>
-        /// phNewGame control.
+        /// btnCreateNewPlayer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder phNewGame;
+        protected global::System.Web.UI.WebControls.Button btnCreateNewPlayer;
+        
+        /// <summary>
+        /// pnlCreateNewPlayer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlCreateNewPlayer;
+        
+        /// <summary>
+        /// tbPlayerName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbPlayerName;
+        
+        /// <summary>
+        /// tbPlayerEmail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbPlayerEmail;
+        
+        /// <summary>
+        /// btnSaveNewPlayer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSaveNewPlayer;
     }
 }
