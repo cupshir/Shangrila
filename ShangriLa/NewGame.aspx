@@ -12,11 +12,38 @@
                 <br />
             </div>
             <div class="row">
-                <asp:PlaceHolder ID="phNewGame" runat="server"></asp:PlaceHolder>
+                <asp:Panel ID="pnlPlayer1" runat="server" Visible="false">
+                    <asp:DropDownList ID="ddlPlayer1" runat="server"></asp:DropDownList><br />
+                </asp:Panel>
+                <asp:Panel ID="pnlPlayer2" runat="server" Visible="false">
+                    <asp:DropDownList ID="ddlPlayer2" runat="server"></asp:DropDownList><br />
+                </asp:Panel>
+                <asp:Panel ID="pnlPlayer3" runat="server" Visible="false">
+                    <asp:DropDownList ID="ddlPlayer3" runat="server"></asp:DropDownList><br />
+                </asp:Panel>
+                <asp:Panel ID="pnlPlayer4" runat="server" Visible="false">
+                    <asp:DropDownList ID="ddlPlayer4" runat="server"></asp:DropDownList><br />
+                </asp:Panel>
+                <asp:Panel ID="pnlPlayer5" runat="server" Visible="false">
+                    <asp:DropDownList ID="ddlPlayer5" runat="server"></asp:DropDownList><br />
+                </asp:Panel>
+                <asp:Panel ID="pnlPlayer6" runat="server" Visible="false">
+                    <asp:DropDownList ID="ddlPlayer6" runat="server"></asp:DropDownList><br />
+                </asp:Panel>
+                <asp:Panel ID="pnlPlayer7" runat="server" Visible="false">
+                    <asp:DropDownList ID="ddlPlayer7" runat="server"></asp:DropDownList><br />
+                </asp:Panel>
+                <asp:Panel ID="pnlPlayer8" runat="server" Visible="false">
+                    <asp:DropDownList ID="ddlPlayer8" runat="server"></asp:DropDownList><br />
+                </asp:Panel>
+                <asp:Panel ID="pnlPlayer9" runat="server" Visible="false">
+                    <asp:DropDownList ID="ddlPlayer9" runat="server"></asp:DropDownList><br />
+                </asp:Panel>
+                <br />
             </div>
             <div class="row">
-                <asp:Button ID="btnAddPlayer" runat="server" Text="Add Player" OnClick="btnAddPlayer_Click" />&nbsp;&nbsp;
-                <asp:Button ID="btnRemovePlayer" runat="server" Text="Remove Player" OnClick="btnRemovePlayer_Click" /><br />
+                <asp:Button ID="btnAddPlayer" runat="server" Text="+" OnClick="btnAddPlayer_Click" />&nbsp;&nbsp;
+                <asp:Button ID="btnRemovePlayer" runat="server" Text="-" OnClick="btnRemovePlayer_Click" /><br />
                 <br />
                 <asp:Button ID="btnCreateNewPlayer" runat="server" OnClick="btnCreateNewPlayer_Click" Text="Create New Player" />
             </div>

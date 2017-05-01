@@ -22,30 +22,30 @@ namespace ShangriLa
         {
             if (!Page.IsPostBack)
             {
-                intializeFormCountSessionVariable();
-                drawPlayerSelectionDropDownLists();
+                initializePlayerCountSessionVariable();
+                initializePlayerDropDownLists();
+                showPlayerPanels(getPlayerCount());
             }
         }
 
         protected void btnAddPlayer_Click(object sender, EventArgs e)
         {
-            increaseFormCountSessionVariable(1);
-            drawPlayerSelectionDropDownLists();
+            increasePlayerCountSessionVariable();
+            showPlayerPanels(getPlayerCount());
         }
 
         protected void btnRemovePlayer_Click(object sender, EventArgs e)
         {
-            decreaseFormCountSessionVariable(1);
-            drawPlayerSelectionDropDownLists();
-
+            decreasePlayerCountSessionVariable();
+            showPlayerPanels(getPlayerCount());
         }
 
         protected void btnStartGame_Click(object sender, EventArgs e)
         {
             Game newGame = DataRepository.CreateNewGame();
-            addPlayersFromForm(newGame.Id);
+            addPlayersFromForm(newGame.Id,getPlayerCount());
             Session.Add("ActiveGame", newGame.Id);
-            Server.Transfer("Default.aspx");
+            Server.Transfer("Scoresheet.aspx");
         }
 
         protected void btnCreateNewPlayer_Click(object sender, EventArgs e)
@@ -58,89 +58,92 @@ namespace ShangriLa
 
         protected void btnSaveNewPlayer_Click(object sender, EventArgs e)
         {
-            DataRepository.CreateNewPlayer(tbPlayerName.Text, tbPlayerEmail.Text);
-            availablePlayers = DataRepository.GetAllPlayers();
+            Player newPlayer = DataRepository.CreateNewPlayer(tbPlayerName.Text, tbPlayerEmail.Text);
+            availablePlayers.Add(newPlayer);
             pnlCreateNewPlayer.Visible = false;
+            initializePlayerDropDownLists();
+            showPlayerPanels(getPlayerCount());
             pnlNewGame.Visible = true;
-            drawPlayerSelectionDropDownLists();
         }
 
-        private void addPlayersFromForm(int gameId)
+        private void addPlayersFromForm(int gameId, int playerCount)
         {
-            drawPlayerSelectionDropDownLists();
-            int formCount = getFormCount();
-            for (int i = 1; i <= formCount; i++)
+            for (int i = 1; i <= playerCount; i++)
             {
-                string ddlName = "ContentPlaceHolder1_ddl" + i;
-                DropDownList ddl = (DropDownList)phNewGame.FindControl("ddl" + i);
+                string ddlName = "ddlPlayer" + i;
+                DropDownList ddlPlayer = (DropDownList)pnlNewGame.FindControl(ddlName);
                 int playerId;
-                if (int.TryParse(ddl.SelectedValue, out playerId))
+                if (int.TryParse(ddlPlayer.SelectedValue, out playerId))
                 {
-                    if (!DataRepository.IsPlayerInGame(gameId, playerId))
+                    if(!DataRepository.IsPlayerInGame(gameId, playerId))
                     {
                         DataRepository.AddPlayerToGame(gameId, playerId);
                     }
-                    
                 }
             }
         }
 
-        private int getFormCount()
+        private int getPlayerCount()
         {
-            return Convert.ToInt32(Session["FormCount"].ToString());
+            return Convert.ToInt32(Session["PlayerCount"].ToString());
         }
 
-        private void intializeFormCountSessionVariable()
+        private void initializePlayerCountSessionVariable()
         {
-            if (Session["FormCount"] == null)
+            if (Session["PlayerCount"] == null)
             {
-                Session.Add("FormCount", 5);
+                Session.Add("PlayerCount", 5);
             }
         }
 
-        private void drawPlayerSelectionDropDownLists()
+        private void initializePlayerDropDownLists()
         {
-            int formCount = getFormCount();
-            
-
-            for (int i = 1; i <= formCount; i++)
+            for (int i = 1; i < 10; i++)
             {
-                Literal ltlPre = new Literal();
-                ltlPre.Text = "Player " + i + " ";
-                phNewGame.Controls.Add(ltlPre);
-
-                DropDownList dropDownList = new DropDownList();
-                dropDownList.DataSource = availablePlayers;
-                dropDownList.DataTextField = "Name";
-                dropDownList.DataValueField = "Id";
-                dropDownList.DataBind();
-                dropDownList.ID = "ddl" + i;
-                phNewGame.Controls.Add(dropDownList);
-
-                Literal ltlPost = new Literal();
-                ltlPost.Text = "<br /><br />";
-                phNewGame.Controls.Add(ltlPost);
+                string pnlName = "ddlPlayer" + i;
+                DropDownList playerDDL = (DropDownList)pnlNewGame.FindControl(pnlName);
+                playerDDL.DataSource = availablePlayers;
+                playerDDL.DataTextField = "Name";
+                playerDDL.DataValueField = "Id";
+                playerDDL.DataBind();
             }
         }
 
-        private void increaseFormCountSessionVariable(int x)
+        private void showPlayerPanels(int playerCount)
         {
-            int formCount = getFormCount();
-            if (formCount < 9)
+            hideAllPlayerPanels();
+            for (int i = 1; i <= playerCount; i++)
             {
-                Session["FormCount"] = Convert.ToInt32(Session["FormCount"].ToString()) + x;
+                string pnlName = "pnlPlayer" + i;
+                Panel showPanel = (Panel)pnlNewGame.FindControl(pnlName);
+                showPanel.Visible = true;
             }
         }
 
-        private void decreaseFormCountSessionVariable(int x)
+        private void hideAllPlayerPanels()
         {
-            int formCount = getFormCount();
-            if (formCount > 5)
+            for (int i = 1; i < 10; i++)
             {
-                Session["FormCount"] = Convert.ToInt32(Session["FormCount"].ToString()) - x;
+                string pnlName = "pnlPlayer" + i;
+                Panel hidePanel = (Panel)pnlNewGame.FindControl(pnlName);
+                hidePanel.Visible = false;
             }
         }
 
+        private void increasePlayerCountSessionVariable()
+        {
+            if (getPlayerCount() < 9)
+            {
+                Session["PlayerCount"] = Convert.ToInt32(Session["PlayerCount"].ToString()) + 1;
+            }
+        }
 
+        private void decreasePlayerCountSessionVariable()
+        {
+            if (getPlayerCount() > 5)
+            {
+                Session["PlayerCount"] = Convert.ToInt32(Session["PlayerCount"].ToString()) - 1;
+            }
+        }
     }
 }

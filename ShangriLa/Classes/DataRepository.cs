@@ -63,12 +63,14 @@ namespace ShangriLa.Classes
             }
         }
 
-        public static void CreateNewPlayer(string name, string email)
+        public static Player CreateNewPlayer(string name, string email)
         {
             using (ShangriLaContext db = new ShangriLaContext())
             {
-                db.Players.Add(new Player { Name = name, Email = email });
+                Player newPlayer = new Player() { Name = name, Email = email };
+                db.Players.Add(newPlayer);
                 db.SaveChanges();
+                return newPlayer;
             }
         }
 
@@ -113,8 +115,7 @@ namespace ShangriLa.Classes
                     ThreeRuns = 0,
                     ThreeSetsOneRun = 0,
                     TwoSetsTwoRuns = 0,
-                    FourSets = 0,
-                    TotalScore = 0
+                    FourSets = 0
                 };
                 db.GamePlayers.Add(newGamePlayer);
                 db.SaveChanges();
