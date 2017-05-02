@@ -105,17 +105,20 @@ namespace ShangriLa.Classes
         {
             using (ShangriLaContext db = new ShangriLaContext())
             {
+                Player player = db.Players.Single(p => p.Id == playerId);
                 GamePlayer newGamePlayer = new GamePlayer()
                 {
                     GameId = gameId,
                     PlayerId = playerId,
+                    PlayerName = player.Name,
                     TwoSetsOneRun = 0,
                     TwoRunsOneSet = 0,
                     ThreeSets = 0,
                     ThreeRuns = 0,
                     ThreeSetsOneRun = 0,
                     TwoSetsTwoRuns = 0,
-                    FourSets = 0
+                    FourSets = 0,
+                    TotalScore = 0
                 };
                 db.GamePlayers.Add(newGamePlayer);
                 db.SaveChanges();

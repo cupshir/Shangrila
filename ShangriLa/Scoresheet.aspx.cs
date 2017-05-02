@@ -16,7 +16,7 @@ namespace ShangriLa
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Session["ActiveGame"] = 19;
+            Session["ActiveGame"] = 1;
             if (!Page.IsPostBack)
             {
                 if (Session["ActiveGame"] == null)

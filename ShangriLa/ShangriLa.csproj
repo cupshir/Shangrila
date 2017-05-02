@@ -124,6 +124,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705020441145_First Update.cs" />
+    <Compile Include="Migrations\201705020441145_First Update.Designer.cs">
+      <DependentUpon>201705020441145_First Update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\GamePlayer.cs" />
     <Compile Include="Models\Player.cs" />
@@ -153,6 +158,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201705020441145_First Update.resx">
+      <DependentUpon>201705020441145_First Update.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
