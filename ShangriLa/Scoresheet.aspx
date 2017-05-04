@@ -5,6 +5,11 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
+    <asp:HiddenField ID="SelectedGridCellIndex" runat="server" Value="-1" />
+    <asp:HiddenField ID="SelectedPlayerId" runat="server" Value="-1" />
+    <asp:HiddenField ID="ActiveGameId" runat="server" Value="-1" />
+
     <div class="container">
         <div class="page-header text-center">
             <h2>ShangriLa Scoresheet</h2>
@@ -28,16 +33,58 @@
                 </asp:GridView>
             </asp:Panel>
             <p></p>
-            <asp:Panel ID="pnlEditPanel" runat="server" Visible="true">
-                <asp:Label ID="lblResult" runat="server" Text=""></asp:Label>
-                <p></p>
-                <asp:Button ID="btnCloseEditPanel" runat="server" Text="Close" OnClick="btnCloseEditPanel_Click" />
+            <asp:Panel ID="pnlEditPanel" runat="server" Visible="false">
+                <h2><asp:Label ID="lblHand" runat="server" Text=""></asp:Label></h2>
+                <p>
+                    <asp:Panel ID="pnlPlayer0" runat="server" Visible="false">
+                        <asp:Label ID="lblPlayerName0" runat="server"></asp:Label><br />
+                        <asp:TextBox ID="tbPlayerScore0" runat="server"></asp:TextBox><br />
+                    </asp:Panel>
+                    <asp:Panel ID="pnlPlayer1" runat="server" Visible="false">
+                        <asp:Label ID="lblPlayerName1" runat="server"></asp:Label><br />
+                        <asp:TextBox ID="tbPlayerScore1" runat="server"></asp:TextBox><br />
+                    </asp:Panel>
+                    <asp:Panel ID="pnlPlayer2" runat="server" Visible="false">
+                        <asp:Label ID="lblPlayerName2" runat="server"></asp:Label><br />
+                        <asp:TextBox ID="tbPlayerScore2" runat="server"></asp:TextBox><br />
+                    </asp:Panel>
+                    <asp:Panel ID="pnlPlayer3" runat="server" Visible="false">
+                        <asp:Label ID="lblPlayerName3" runat="server"></asp:Label><br />
+                        <asp:TextBox ID="tbPlayerScore3" runat="server"></asp:TextBox><br />
+                    </asp:Panel>
+                    <asp:Panel ID="pnlPlayer4" runat="server" Visible="false">
+                        <asp:Label ID="lblPlayerName4" runat="server"></asp:Label><br />
+                        <asp:TextBox ID="tbPlayerScore4" runat="server"></asp:TextBox><br />
+                    </asp:Panel>
+                    <asp:Panel ID="pnlPlayer5" runat="server" Visible="false">
+                        <asp:Label ID="lblPlayerName5" runat="server"></asp:Label><br />
+                        <asp:TextBox ID="tbPlayerScore5" runat="server"></asp:TextBox><br />
+                    </asp:Panel>
+                    <asp:Panel ID="pnlPlayer6" runat="server" Visible="false">
+                        <asp:Label ID="lblPlayerName6" runat="server"></asp:Label><br />
+                        <asp:TextBox ID="tbPlayerScore6" runat="server"></asp:TextBox><br />
+                    </asp:Panel>
+                    <asp:Panel ID="pnlPlayer7" runat="server" Visible="false">
+                        <asp:Label ID="lblPlayerName7" runat="server"></asp:Label><br />
+                        <asp:TextBox ID="tbPlayerScore7" runat="server"></asp:TextBox><br />
+                    </asp:Panel>
+                    <asp:Panel ID="pnlPlayer8" runat="server" Visible="false">
+                        <asp:Label ID="lblPlayerName8" runat="server"></asp:Label><br />
+                        <asp:TextBox ID="tbPlayerScore8" runat="server"></asp:TextBox><br />
+                    </asp:Panel>
+                    <p>
+                    </p>
+                    <asp:Button ID="btnEditPanelSave" runat="server" OnClick="btnEditPanelSave_Click" Text="Save" />
+                    <p>
+                    </p>
+                    <p>
+                    </p>
+                    <p>
+                    </p>
+                </p>
             </asp:Panel>
-            <p></p>
-            
-            <p></p>
             <asp:LinkButton ID="lnkDummy" runat="server"></asp:LinkButton>
-            <asp:HiddenField ID="SelectedGridCellIndex" runat="server" Value="-1" />
+
         </div>
     </div>
 </asp:Content>
