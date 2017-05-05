@@ -6,9 +6,10 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <asp:HiddenField ID="SelectedGridCellIndex" runat="server" Value="-1" />
-    <asp:HiddenField ID="SelectedPlayerId" runat="server" Value="-1" />
-    <asp:HiddenField ID="ActiveGameId" runat="server" Value="-1" />
+    <asp:HiddenField ID="SelectedGridCellIndex" runat="server" Value="-5" />
+    <asp:HiddenField ID="SelectedRow" runat="server" Value="-5" />
+    <asp:HiddenField ID="SelectedPlayerId" runat="server" Value="-5" />
+    <asp:HiddenField ID="ActiveGameId" runat="server" Value="-5" />
 
     <div class="container">
         <div class="page-header text-center">
@@ -72,19 +73,10 @@
                         <asp:Label ID="lblPlayerName8" runat="server"></asp:Label><br />
                         <asp:TextBox ID="tbPlayerScore8" runat="server"></asp:TextBox><br />
                     </asp:Panel>
-                    <p>
-                    </p>
+                    <br />
                     <asp:Button ID="btnEditPanelSave" runat="server" OnClick="btnEditPanelSave_Click" Text="Save" />
-                    <p>
-                    </p>
-                    <p>
-                    </p>
-                    <p>
-                    </p>
                 </p>
             </asp:Panel>
-            <asp:LinkButton ID="lnkDummy" runat="server"></asp:LinkButton>
-
         </div>
     </div>
 </asp:Content>

@@ -45,15 +45,19 @@
                 <asp:Button ID="btnAddPlayer" runat="server" Text="+" OnClick="btnAddPlayer_Click" />&nbsp;&nbsp;
                 <asp:Button ID="btnRemovePlayer" runat="server" Text="-" OnClick="btnRemovePlayer_Click" /><br />
                 <br />
-                <asp:Button ID="btnCreateNewPlayer" runat="server" OnClick="btnCreateNewPlayer_Click" Text="Create New Player" />
+                <asp:Button ID="btnCreateNewPlayer" runat="server" OnClick="btnCreateNewPlayer_Click" Text="Create New Player" />&nbsp;&nbsp;
+                <asp:Button ID="btnCancelNewGame" runat="server" OnClick="btnCancelNewGame_Click" Text="Cancel" />
             </div>
         </asp:Panel>
         <asp:Panel ID="pnlCreateNewPlayer" runat="server" Visible="False">
             <div class="row">
-                Player Name:  <asp:TextBox ID="tbPlayerName" runat="server"></asp:TextBox><br />
-                Player Email:&nbsp; <asp:TextBox ID="tbPlayerEmail" runat="server"></asp:TextBox><br />
+                Player Name:<br /> 
+                <asp:TextBox ID="tbPlayerName" runat="server"></asp:TextBox><br />
+                Player Email:<br /> 
+                <asp:TextBox ID="tbPlayerEmail" runat="server"></asp:TextBox><br />
                 <br />
-                <asp:Button ID="btnSaveNewPlayer" runat="server" Text="Create New Player" OnClick="btnSaveNewPlayer_Click" />
+                <asp:Button ID="btnSaveNewPlayer" runat="server" Text="Create New Player" OnClick="btnSaveNewPlayer_Click" />&nbsp;&nbsp;
+                <asp:Button ID="btnCancelCreateNewPlayer" runat="server" OnClick="btnCancelCreateNewPlayer_Click" Text="Cancel"/>
             </div>
         </asp:Panel>
     </div>

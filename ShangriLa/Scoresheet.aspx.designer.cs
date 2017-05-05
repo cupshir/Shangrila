@@ -22,6 +22,15 @@ namespace ShangriLa {
         protected global::System.Web.UI.WebControls.HiddenField SelectedGridCellIndex;
         
         /// <summary>
+        /// SelectedRow control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField SelectedRow;
+        
+        /// <summary>
         /// SelectedPlayerId control.
         /// </summary>
         /// <remarks>
@@ -326,14 +335,5 @@ namespace ShangriLa {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnEditPanelSave;
-        
-        /// <summary>
-        /// lnkDummy control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkDummy;
     }
 }

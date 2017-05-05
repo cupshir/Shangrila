@@ -132,30 +132,42 @@ namespace ShangriLa.Classes
                 GamePlayer gamePlayer = db.GamePlayers.Single(p => p.GameId == gameId && p.PlayerId == playerId);
                 switch (hand)
                 {
-                    case "Two Sets One Run":
+                    case "2 Sets 1 Run":
                         gamePlayer.TwoSetsOneRun = score;
                         break;
-                    case "Two Runs One Set":
+                    case "2 Runs 1 Set":
                         gamePlayer.TwoRunsOneSet = score;
                         break;
-                    case "Three Sets":
+                    case "3 Sets":
                         gamePlayer.ThreeSets = score;
                         break;
-                    case "Three Runs":
+                    case "3 Runs":
                         gamePlayer.ThreeRuns = score;
                         break;
-                    case "Three Sets One Run":
+                    case "3 Sets 1 Run":
                         gamePlayer.ThreeSetsOneRun = score;
                         break;
-                    case "Two Sets Two Runs":
+                    case "2 Sets 2 Runs":
                         gamePlayer.TwoSetsTwoRuns = score;
                         break;
-                    case "Four Sets":
+                    case "4 Sets":
                         gamePlayer.FourSets = score;
                         break;
                     default:
                         break;
                 }
+                db.SaveChanges();
+            }
+        }
+
+        public static void UpdatePlayerTotalScore(int gameId, int playerId, int totalScore)
+        {
+            using(ShangriLaContext db = new ShangriLaContext())
+            {
+                GamePlayer gamePlayer = db.GamePlayers.Single(p => p.GameId == gameId && p.PlayerId == playerId);
+
+                gamePlayer.TotalScore = totalScore;
+
                 db.SaveChanges();
             }
         }

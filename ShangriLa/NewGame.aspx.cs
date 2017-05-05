@@ -145,5 +145,19 @@ namespace ShangriLa
                 Session["PlayerCount"] = Convert.ToInt32(Session["PlayerCount"].ToString()) - 1;
             }
         }
+
+        protected void btnCancelCreateNewPlayer_Click(object sender, EventArgs e)
+        {
+            pnlCreateNewPlayer.Visible = false;
+            initializePlayerDropDownLists();
+            showPlayerPanels(getPlayerCount());
+            pnlNewGame.Visible = true;
+
+        }
+
+        protected void btnCancelNewGame_Click(object sender, EventArgs e)
+        {
+            Server.Transfer("Default.aspx");
+        }
     }
 }

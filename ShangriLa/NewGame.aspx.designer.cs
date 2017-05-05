@@ -220,6 +220,15 @@ namespace ShangriLa {
         protected global::System.Web.UI.WebControls.Button btnCreateNewPlayer;
         
         /// <summary>
+        /// btnCancelNewGame control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCancelNewGame;
+        
+        /// <summary>
         /// pnlCreateNewPlayer control.
         /// </summary>
         /// <remarks>
@@ -254,5 +263,14 @@ namespace ShangriLa {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSaveNewPlayer;
+        
+        /// <summary>
+        /// btnCancelCreateNewPlayer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCancelCreateNewPlayer;
     }
 }

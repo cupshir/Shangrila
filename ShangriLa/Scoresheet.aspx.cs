@@ -2,11 +2,8 @@
 using ShangriLa.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Data;
 
 namespace ShangriLa
 {
@@ -16,35 +13,41 @@ namespace ShangriLa
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Hardcode game for testing
-            ActiveGameId.Value = "2";
-
             // If no active game in Session then rediret back to default
             if (!Page.IsPostBack)
             {
                 if (Session["ActiveGame"] == null)
                 {
-                    Server.Transfer("Default.aspx");
+                    //Server.Transfer("Default.aspx");
                 }
                 else
                 {
-                    if (SelectedPlayerId.Value == null)
-                    {
-                        SelectedPlayerId.Value = "-1";
-                    }
+                    ActiveGameId.Value = Session["ActiveGame"].ToString();
 
                     // Load current game and display Scoresheet
-                    currentGame = DataRepository.GetGamePlayers(Int32.Parse(ActiveGameId.Value));
-                    displayScoresheet();
+                    setScoresheet(int.Parse(ActiveGameId.Value));
+                    calculateTotalScores();
+                    setScoresheet(int.Parse(ActiveGameId.Value));
                 }
-
             }
-            
         }
 
-        // Display Scoresheet
-        private void displayScoresheet()
+        private void calculateTotalScores()
         {
+            for (int i = 0; i < gvScoresheet.Rows.Count; i++)
+            {
+                int totalScore = 0;
+                for (int j = 1; j < 8 ; j++)
+                {
+                    totalScore += int.Parse(gvScoresheet.Rows[i].Cells[j].Text);
+                }
+                DataRepository.UpdatePlayerTotalScore(int.Parse(ActiveGameId.Value), int.Parse(gvScoresheet.Rows[i].Cells[9].Text), totalScore);
+            }
+        }
+
+        private void setScoresheet(int gameId)
+        {
+            currentGame = DataRepository.GetGamePlayers(gameId);
             gvScoresheet.DataSource = currentGame;
             gvScoresheet.DataBind();
         }
@@ -87,24 +90,13 @@ namespace ShangriLa
             {
                 displayPlayerScoreEntry(grid);
             }
-
-            // Temp info...
-            //lblResult.Text += "Row Index: " + rowIndex + "<br />";
-            //lblResult.Text += "Cell Index: " + selectedCellIndex + "<br />";
-            //lblResult.Text += "Selected Hand: " + gvScoresheet.HeaderRow.Cells[selectedCellIndex].Text + "<br />";
-            //lblResult.Text += "Selected Player: " + gvScoresheet.Rows[rowIndex].Cells[0].Text + "<br />";
-            //lblResult.Text += "Selected PlayerID: " + gvScoresheet.Rows[rowIndex].Cells[9].Text + "<br />";
-            //lblResult.Text += "Cell Value: " + gvScoresheet.Rows[rowIndex].Cells[selectedCellIndex].Text + "<br /><br />";
-
-
-
         }
 
         // Edit panel for single player score
         private void displayPlayerScoreEntry(GridView grid)
         {
-            GridViewRow selectedRow = grid.SelectedRow;
             int rowIndex = grid.SelectedIndex;
+            SelectedRow.Value = rowIndex.ToString();
             int selectedCellIndex = int.Parse(this.SelectedGridCellIndex.Value);
 
             lblHand.Text = gvScoresheet.HeaderRow.Cells[selectedCellIndex].Text;
@@ -121,8 +113,8 @@ namespace ShangriLa
         // Edit panel for All players scores
         private void displayAllPlayersScoreEntry(GridView grid)
         {
-            GridViewRow selectedRow = grid.SelectedRow;
             int rowIndex = grid.SelectedIndex;
+            SelectedRow.Value = rowIndex.ToString();
             int selectedCellIndex = int.Parse(this.SelectedGridCellIndex.Value);
 
             lblHand.Text = gvScoresheet.HeaderRow.Cells[selectedCellIndex].Text;
@@ -143,27 +135,30 @@ namespace ShangriLa
 
         protected void btnEditPanelSave_Click(object sender, EventArgs e)
         {
-            int playerId = Int32.Parse(SelectedPlayerId.Value);
+            int playerId = int.Parse(SelectedPlayerId.Value);
             // Save value(s) to database
-            if (playerId != -1)
+            if (playerId != -5)
             {
                 saveSinglePlayerScores(playerId);
             }
-            else if(playerId == -1)
+            else if(playerId == -5)
             {
                 saveAllPlayersScores();
             }
 
             // Clear form and hide player panels
             clearEditForm();
-   
+
+            // Reset SelectedPlayerId
+            SelectedPlayerId.Value = "-5";
+
+            // Refresh Scoresheet
+            setScoresheet(int.Parse(ActiveGameId.Value));
+            calculateTotalScores();
+            setScoresheet(int.Parse(ActiveGameId.Value));
+
             // Hide edit form and show Grid
             hideEditShowGrid();
-        }
-
-        private void hidePlayerPanels()
-        {
-            throw new NotImplementedException();
         }
 
         private void clearEditForm()
@@ -182,21 +177,26 @@ namespace ShangriLa
         {
             int selectedCellIndex = int.Parse(this.SelectedGridCellIndex.Value);
 
-            Panel namePanel = (Panel)pnlEditPanel.FindControl("pnlPlayer" + )
+            TextBox tbScore = (TextBox)pnlEditPanel.FindControl("tbPlayerScore" + SelectedRow.Value);
+            int score = int.Parse(tbScore.Text);
 
-
-
-            //int score = 
-
-
-            DataRepository.UpdatePlayerScore(ActiveGameId.Value, playerId, gvScoresheet.HeaderRow.Cells[selectedCellIndex].Text, score);
-
-            //throw new NotImplementedException();
+            DataRepository.UpdatePlayerScore(Int32.Parse(ActiveGameId.Value), playerId, gvScoresheet.HeaderRow.Cells[selectedCellIndex].Text, score);
         }
 
         private void saveAllPlayersScores()
         {
-            //throw new NotImplementedException();
+            int selectedCellIndex = int.Parse(this.SelectedGridCellIndex.Value);
+
+            for (int i = 0; i < gvScoresheet.Rows.Count; i++)
+            {
+                Panel namePanel = (Panel)pnlEditPanel.FindControl("pnlPlayer" + i);
+
+                TextBox tbScore = (TextBox)pnlEditPanel.FindControl("tbPlayerScore" + i);
+                int score = int.Parse(tbScore.Text);
+                int playerId = int.Parse(gvScoresheet.Rows[i].Cells[9].Text);
+
+                DataRepository.UpdatePlayerScore(Int32.Parse(ActiveGameId.Value), playerId, gvScoresheet.HeaderRow.Cells[selectedCellIndex].Text, score);
+            }
         }
 
         // Hide scoresheet panel and Show Edit panel
