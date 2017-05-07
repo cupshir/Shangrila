@@ -13,25 +13,26 @@ namespace ShangriLa
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // If no active game in Session then rediret back to default
+            // If no active game in Session then redirect back to default
             if (!Page.IsPostBack)
             {
                 if (Session["ActiveGame"] == null)
                 {
-                    //Server.Transfer("Default.aspx");
+                    Server.Transfer("Default.aspx");
                 }
                 else
                 {
                     ActiveGameId.Value = Session["ActiveGame"].ToString();
 
                     // Load current game and display Scoresheet
-                    setScoresheet(int.Parse(ActiveGameId.Value));
+                    bindScoresheet(int.Parse(ActiveGameId.Value));
                     calculateTotalScores();
-                    setScoresheet(int.Parse(ActiveGameId.Value));
+                    bindScoresheet(int.Parse(ActiveGameId.Value));
                 }
             }
         }
 
+        // Calculate total score column
         private void calculateTotalScores()
         {
             for (int i = 0; i < gvScoresheet.Rows.Count; i++)
@@ -45,7 +46,8 @@ namespace ShangriLa
             }
         }
 
-        private void setScoresheet(int gameId)
+        // Bind datasource to gridview
+        private void bindScoresheet(int gameId)
         {
             currentGame = DataRepository.GetGamePlayers(gameId);
             gvScoresheet.DataSource = currentGame;
@@ -132,35 +134,7 @@ namespace ShangriLa
             hideGridShowEdit();
         }
         
-
-        protected void btnEditPanelSave_Click(object sender, EventArgs e)
-        {
-            int playerId = int.Parse(SelectedPlayerId.Value);
-            // Save value(s) to database
-            if (playerId != -5)
-            {
-                saveSinglePlayerScores(playerId);
-            }
-            else if(playerId == -5)
-            {
-                saveAllPlayersScores();
-            }
-
-            // Clear form and hide player panels
-            clearEditForm();
-
-            // Reset SelectedPlayerId
-            SelectedPlayerId.Value = "-5";
-
-            // Refresh Scoresheet
-            setScoresheet(int.Parse(ActiveGameId.Value));
-            calculateTotalScores();
-            setScoresheet(int.Parse(ActiveGameId.Value));
-
-            // Hide edit form and show Grid
-            hideEditShowGrid();
-        }
-
+        // Clear text entry boxes on edit form
         private void clearEditForm()
         {
             for (int i = 0; i < gvScoresheet.Rows.Count; i++)
@@ -173,6 +147,7 @@ namespace ShangriLa
             }
         }
 
+        // Save single score to database
         private void saveSinglePlayerScores(int playerId)
         {
             int selectedCellIndex = int.Parse(this.SelectedGridCellIndex.Value);
@@ -183,6 +158,7 @@ namespace ShangriLa
             DataRepository.UpdatePlayerScore(Int32.Parse(ActiveGameId.Value), playerId, gvScoresheet.HeaderRow.Cells[selectedCellIndex].Text, score);
         }
 
+        // Save all player scores to database
         private void saveAllPlayersScores()
         {
             int selectedCellIndex = int.Parse(this.SelectedGridCellIndex.Value);
@@ -211,6 +187,51 @@ namespace ShangriLa
         {
             pnlEditPanel.Visible = false;
             pnlGridView.Visible = true;
+        }
+
+        // Button to Default page
+        protected void btnMainMenu_Click(object sender, EventArgs e)
+        {
+            Server.Transfer("Default.aspx");
+        }
+
+        // Button to complete a game
+        protected void btnCompleteGame_Click(object sender, EventArgs e)
+        {
+            DataRepository.CompleteGame(int.Parse(Session["ActiveGame"].ToString()));
+
+            Session["ActiveGame"] = "";
+
+            Server.Transfer("Default.aspx");
+        }
+
+        // Button to save player scores to database
+        protected void btnEditPanelSave_Click(object sender, EventArgs e)
+        {
+            int playerId = int.Parse(SelectedPlayerId.Value);
+            // Save value(s) to database
+            if (playerId != -5)
+            {
+                saveSinglePlayerScores(playerId);
+            }
+            else if (playerId == -5)
+            {
+                saveAllPlayersScores();
+            }
+
+            // Clear form and hide player panels
+            clearEditForm();
+
+            // Reset SelectedPlayerId
+            SelectedPlayerId.Value = "-5";
+
+            // Refresh Scoresheet
+            bindScoresheet(int.Parse(ActiveGameId.Value));
+            calculateTotalScores();
+            bindScoresheet(int.Parse(ActiveGameId.Value));
+
+            // Hide edit form and show Grid
+            hideEditShowGrid();
         }
     }
 }

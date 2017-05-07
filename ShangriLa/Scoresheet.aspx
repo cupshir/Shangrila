@@ -13,7 +13,10 @@
 
     <div class="container">
         <div class="page-header text-center">
+            <asp:Button ID="btnMainMenu" runat="server" CssClass="pull-left" Text="Menu" OnClick="btnMainMenu_Click" />
+            <asp:Button ID="btnCompleteGame" runat="server" CssClass="pull-right" Text="End Game" OnClick="btnCompleteGame_Click" />
             <h2>ShangriLa Scoresheet</h2>
+
         </div>
         <div class="row">
             <asp:Panel ID="pnlGridView" runat="server">

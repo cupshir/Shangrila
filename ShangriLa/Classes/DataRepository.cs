@@ -172,5 +172,17 @@ namespace ShangriLa.Classes
             }
         }
 
+        public static void CompleteGame(int gameId)
+        {
+            using (ShangriLaContext db = new ShangriLaContext())
+            {
+                Game game = db.Games.Single(p => p.Id == gameId);
+
+                game.IsComplete = true;
+
+                db.SaveChanges();
+            }
+        }
+
     }
 }
